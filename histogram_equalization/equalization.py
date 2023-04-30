@@ -9,17 +9,17 @@ width, height = grayscale_image.size
 pixel_qtd = width * height
 
 equalized_value = []
+gray_levels_sums = []
 frequency_sum = 0
 
+for i in range(256): gray_levels_sums.append(0)
 
-for gray_level in range(256):
-    gray_level_sum = 0
-    frequency = 0
-    for i in range(width):
+for i in range(width):
         for j in range(height):
-            if grayscale_image.getpixel((i,j)) == gray_level:
-                gray_level_sum += 1
-    frequency = gray_level_sum / pixel_qtd
+            gray_levels_sums[grayscale_image.getpixel((i,j))] += 1
+
+for i in range(256):
+    frequency = gray_levels_sums[i] / pixel_qtd
     frequency_sum += frequency
     equalized_value.append(round(frequency_sum * 255))
 
